@@ -14,12 +14,14 @@ onValue(movementDataRef, (snapshot) => {
         obj.dateEntry = data[i].dateEntry;
         let motionEntries = [];
         if(data[i].motionEntry) {
-            for (let j = 0; j < data[i].motionEntry.length; j++) {//there can be multiple motion entries
+            for (let j = 0; j < data[i].motionEntry.length; j++) {//there can be multiple motion entries  
+              if (data[i].motionEntry[j].feelings && data[i].motionEntry[j].name) {
                 let motionEntry = {};
                 motionEntry.feelings = data[i].motionEntry[j].feelings;
                 motionEntry.name = data[i].motionEntry[j].name;
                 motionEntry.note = data[i].motionEntry[j].note;
                 motionEntries.push(motionEntry);
+              }
             }
         }
         obj.motionEntry = motionEntries;
