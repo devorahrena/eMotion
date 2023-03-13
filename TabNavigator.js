@@ -26,7 +26,7 @@ const TabNavigator = () => {
         tabBarStyle: [
           {
             display: "flex",
-            height: 55
+            height: 70
           },
         ],
     }}>
@@ -46,7 +46,7 @@ const TabNavigator = () => {
       ),
     }}
      name="Reflect" component={ReflectionTask} />
-    
+
 
     <Tab.Screen options={{
       showLabel: false,
