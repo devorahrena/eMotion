@@ -36,7 +36,7 @@ export default function HowDoYouFeel({ route }) {
         <View style={styles.backArrowBox}>
           <MaterialIcons
             name="keyboard-backspace"
-            size={50}
+            size={30}
             color="black"
             onPress={() => {
               navigator.goBack()
@@ -354,7 +354,6 @@ const styles = StyleSheet.create({
     paddingRight: 20
   },
   backArrowBox: {
-    top: 20,
     width: '100%',
     justifyContent: 'center',
     height: '7.5%',
