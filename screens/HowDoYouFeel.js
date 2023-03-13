@@ -21,7 +21,6 @@ export default function HowDoYouFeel({ route }) {
   const [currentEmotions, setCurrentEmotions] = useState([])
   const [selectedCategory, setSelectedCategory] = useState('all')
   const movement = route?.params.movement
-  const showToast = route?.params.showToast
   const navigator = useNavigation()
   const positions = [
     [40, 20],
@@ -36,7 +35,7 @@ export default function HowDoYouFeel({ route }) {
         <View style={styles.backArrowBox}>
           <MaterialIcons
             name="keyboard-backspace"
-            size={30}
+            size={50}
             color="black"
             onPress={() => {
               navigator.goBack()
@@ -45,7 +44,8 @@ export default function HowDoYouFeel({ route }) {
         </View>
       )}
       <View style={styles.questionView}>
-        <Text style={styles.question}>What's your eMotion?</Text>
+        <Text style={styles.question}>What is your</Text>
+        <Text style={styles.question}>current emotion?</Text>
       </View>
       {/* primary bubbles  */}
       {selectedCategory == 'all' && (
@@ -177,7 +177,6 @@ export default function HowDoYouFeel({ route }) {
             style={styles.selectButton}
             onPress={() => {
               context.updateMovement(movement, currentEmotions, context.date)
-              showToast()
               navigator.navigate('CurrentEmotion')
             }}
           >
@@ -254,8 +253,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   question: {
+    width: 250,
     fontSize: 30,
     fontWeight: '500',
+    marginLeft: 10,
     textAlign: 'center'
   },
   questionView: {
@@ -354,6 +355,7 @@ const styles = StyleSheet.create({
     paddingRight: 20
   },
   backArrowBox: {
+    top: 20,
     width: '100%',
     justifyContent: 'center',
     height: '7.5%',
