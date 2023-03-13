@@ -3,12 +3,12 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import FeelingContext from '../components/FeelingContext';
 import { useContext } from 'react';
 import Themes from "../assets/Themes";
-import { Feather } from '@expo/vector-icons'; 
-import { MaterialIcons } from '@expo/vector-icons'; 
+import { Feather } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
 import motionData from "../utils/motionData";
 const {
     width: SCREEN_WIDTH,
@@ -22,8 +22,12 @@ export default function DuringMotion({route}) {
     const [movement, setMovement] = useState(route.params.selectedMovement)
     const [text, setText] = useState('')
     const [motions, setMotions] = useState([])
+    const inputRef = React.useRef();
     useEffect(() => {
         setMotions(getMotions(motionData));
+        setTimeout(() => {
+          inputRef.current?.focus()
+        }, 0);
     }, [])
 
     const getMotions = (motionData) => {
@@ -56,34 +60,33 @@ export default function DuringMotion({route}) {
     }
     const renderOptions = filterData(motions).map((motion) => {
         return (
-            <TouchableOpacity onPress={() => setText(motion)} style={styles.option}><Text style={{color: 'white'}}>{motion}</Text></TouchableOpacity>
+            <TouchableOpacity onPress={() => setText(motion)} style={styles.option}><Text style={{color: 'white', fontSize: 10}}>{motion}</Text></TouchableOpacity>
         )
     })
     return (
         <SafeAreaView style={styles.container}>
+            <View>
             <View style={styles.movementContainer}>
                 {movement.length > 0 && <Text style={styles.motion}>{movement}</Text>}
-                {movement.length == 0 && 
-                    motions.length > 0 && 
+                {movement.length == 0 &&
+                    motions.length > 0 &&
                     <View style={styles.autocompleteContainer}>
-                        <View style={{height: 70}}><ScrollView horizontal>{renderOptions}</ScrollView></View>
-                        <TextInput style={styles.textinput} onChangeText={setText} value={text} placeholder="Type a movement..." />
+                        <View style={{height: 50}}><ScrollView horizontal showsHorizontalScrollIndicator={false}>{renderOptions}</ScrollView></View>
+                        <View style={styles.userInput}>
+                          <TextInput ref={inputRef} style={styles.textinput} autoFocus={true} onChangeText={setText} value={text} placeholder="Type a movement..." />
+                          <Pressable style={styles.startButton} onPress={() => {
+                                  setMovementStarted(true)
+                                  if (text.length > 0) setMovement(text)
+                          }}>
+                            <Text> Start </Text>
+                          </Pressable>
+                        </View>
                     </View>}
             </View>
-            
-            {!movementStarted && (movement.length > 0 || text.length > 0) && 
-                <View style={styles.bottomViewContainer}>
-                    <TouchableOpacity style={styles.startMovingContainer} onPress={() => {
-                            setMovementStarted(true)
-                            if (text.length > 0) setMovement(text)
-                        }}>
-                        <Text style={styles.bottomText}>Start Moving</Text>
-                    </TouchableOpacity>
-                </View>
-                }
-            {movementStarted && 
+
+            {movementStarted &&
             <View style={styles.bottomViewContainer}>
-                <TouchableOpacity style={styles.startMovingContainer} onPress={() => 
+                <TouchableOpacity style={styles.startMovingContainer} onPress={() =>
                     {
                         context.updateMotion(text.length > 0 ? text : movement, []);
                         navigator.navigate('HowDoYouFeel', {movement: text.length > 0 ? text : movement, showToast: route.params.showToast})
@@ -91,8 +94,9 @@ export default function DuringMotion({route}) {
                     <Text style={styles.bottomText}>End movement</Text>
                 </TouchableOpacity>
             </View>}
+            </View>
             <View style={styles.backArrowBox}>
-                <MaterialIcons name="keyboard-backspace" size={50} color="black" onPress={() => {
+                <MaterialIcons name="keyboard-backspace" size={30} color="black" onPress={() => {
                 navigator.goBack()}}/>
             </View>
         </SafeAreaView>
@@ -102,6 +106,7 @@ export default function DuringMotion({route}) {
 const styles = StyleSheet.create({
     container:{
         display: 'flex',
+        justifyContent: 'center'
     },
     movementContainer:{
         width: '100%',
@@ -124,17 +129,17 @@ const styles = StyleSheet.create({
     },
     motion: {
         fontWeight: 'bold',
-        fontSize: SCREEN_HEIGHT * 0.045,
+        fontSize: SCREEN_HEIGHT * 0.035,
     },
      option: {
         backgroundColor: 'black',
         borderRadius: 10,
-        padding: 10, 
-        margin: 10
+        padding: 10,
+        margin: 9
      },
     textinput: {
-        fontSize: 28,
-        borderBottomWidth: 1,
+        fontWeight: 'bold',
+        fontSize: SCREEN_HEIGHT * 0.035,
         width: '100%'
     },
     bottomText: {
@@ -152,14 +157,21 @@ const styles = StyleSheet.create({
         flex: 1,
         position: 'absolute',
         top: 100,
-        zIndex: 1,
       },
     backArrowBox: {
         width: '100%',
-        justifyContent: 'center',
         height: '7.5%',
         paddingHorizontal: '4%',
         position: 'absolute',
-        top: 20
+        top: 60
     },
+    startButton: {
+      position: 'absolute',
+      alignSelf: 'center',
+      right: 0,
+    },
+    userInput: {
+      display: 'flex',
+      flexDirection: 'row'
+    }
 });
