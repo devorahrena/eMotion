@@ -58,7 +58,7 @@ export default function CalendarWeek({navigator}) {
                         )
                     })}
                 </View>
-                <Text style={styles.smallText}>Tap to expand</Text>
+                <Text style={styles.smallText}>Tap to explore</Text>
             </TouchableOpacity>
         </View>
     )
@@ -72,7 +72,9 @@ const styles = StyleSheet.create({
         overflow: 'hidden',
     },
     separator: {
-        height: 1,
+        marginTop:10,
+        marginBottom: 10,
+        height: 2,
         width: '100%',
         backgroundColor: '#bdbdbd'
     },
@@ -98,8 +100,10 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     smallText: {
+        marginTop:10,
         fontSize: 14,
-        textAlign: 'right'
+        textAlign: 'right',
+        color: '#777777'
     },
     daysOfWeek: {
         color: '#626262'
@@ -109,6 +113,7 @@ const styles = StyleSheet.create({
         fontWeight: '600'
     },
     dayCircle: {
+        marginTop:5,
         width: 30,
         height: 30,
         borderWidth: 2,
