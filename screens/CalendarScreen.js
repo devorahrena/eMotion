@@ -107,7 +107,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     calendar: {
-        borderRadius: 20,
+        marginTop: 10,
+        borderRadius: 10,
         shadowColor: 'gray',
         shadowOpacity: 0.3,
         shadowOffset: {
@@ -121,15 +122,15 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        height: '7.5%',
-        paddingHorizontal: '7%',
+        height: '10.5%',
         width: '100%'
     },
     title: {
         textAlign: 'center',
         fontWeight: '700',
         fontSize: 28,
-        margin: 10
+        marginTop:6,
+        margin: 3
     },
     date: {
         width: '80%',
@@ -151,8 +152,8 @@ const styles = StyleSheet.create({
     backArrow: {
         height: 50,
         position: 'absolute',
-        left: 0,
-        marginTop: 60,
+        left: 20,
+        marginTop: 20,
         zIndex: 1000,
     },
 });
