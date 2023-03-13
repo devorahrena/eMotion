@@ -13,9 +13,9 @@ export default function ReflectPage () {
     
     return (
         <SafeAreaView style={{margin: 20}}>
+            <Text style={styles.title}>Reflect</Text>
             <View style={styles.calendarContainer}><CalendarWeek navigator={navigator}/></View>
             <View style={styles.feelingContainer}><FeelingPatterns navigator={navigator}/></View>
-            <TouchableOpacity onPress={() => navigator.navigate("Patterns")}><Text>See all eMotions</Text></TouchableOpacity>
             <View>
             </View>
         </SafeAreaView>
