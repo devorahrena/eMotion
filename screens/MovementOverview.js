@@ -53,7 +53,7 @@ export default function MovementOverview({ route }) {
         if (movement.motionEntry){
           var movementData = movement.motionEntry
           for (var entry of movementData) {
-            temp.push({title: entry.feelings.join(', '), description: `from ${entry.name}`, circleColor: context.colorMapping[entry.feelings[0]], lineColor: context.colorMapping[entry.feelings[0]]})
+            temp.push({title: entry.feelings.join(', '), description: entry.name.length > 0 && `from ${entry.name}`, circleColor: context.colorMapping[entry.feelings[0]], lineColor: context.colorMapping[entry.feelings[0]]})
           }
           temp.push(firstItem)
           setData(temp)

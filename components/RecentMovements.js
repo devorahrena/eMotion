@@ -18,13 +18,14 @@ export default function RecentMovements({ navigator, showToast }) {
   const context = useContext(FeelingContext)
   console.log(showToast)
   const renderMovements = (i) => {
+    const movements = hardcodedMovementData[i].motionEntry.reverse()
     console.log("length inside rendermovements is " + hardcodedMovementData[i].motionEntry.length)
     return (
       <View style={styles.entryContainer}>
         <View style={styles.date}>
           <Text>{hardcodedMovementData[i].dateEntry}</Text>
         </View>
-        {hardcodedMovementData[i].motionEntry.map((entry, idx) => {
+        {movements.map((entry, idx) => {
           return (
             <View key={idx} style={styles.movement}>
               <View style={styles.emotionContainer}>

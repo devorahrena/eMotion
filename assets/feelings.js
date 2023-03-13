@@ -1,40 +1,40 @@
 import blend_colors from '../blend_colors';
 
 const basicColorMapping = {
-  "joyful": "#FFF27A",
-  "anxious":"#FF7A8C",
-  "angry":"#CA7AFF",
-  "sad":"#7AFF8C",
-  "surprised":"#FFA07A",
+  "joyful": "#FDEF8F",
+  "anxious":"#F19998",
+  "angry":"#CB9AF9",
+  "sad":"#98ec9d",
+  "surprised":"#f4b289",
 };
 
 function mapAllColors(basicColorMapping) {
   colorMapping = basicColorMapping;
 
-  colorMapping["content"] = '#ffd97a';
-  colorMapping["peaceful"] = "#ffea7a";
-  colorMapping["playful"] = "#ffe67c";
-  colorMapping["powerful"] = "#ffce7f";
+  colorMapping["content"] = '#FADC8D';
+  colorMapping["peaceful"] = "#FCE98F";
+  colorMapping["playful"] = "#F9D48E";
+  colorMapping["powerful"] = "#FBE5A5";
 
-  colorMapping["stressed"] = "#ff9e87";
-  colorMapping["eager"] = "#ff868a";
-  colorMapping["interested"] = "#fa7a98";
-  colorMapping["excited"] = "#ef7aaf";
+  colorMapping["stressed"] = "#F4B296";
+  colorMapping["eager"] = "#E89FA7";
+  colorMapping["interested"] = "#F2A196";
+  colorMapping["excited"] = "#EB98B6";
 
-  colorMapping["dismayed"] = "#da7add";
-  colorMapping["aggressive"] = "#cf7af4";
-  colorMapping["bored"] = "#c287f4";
-  colorMapping["frustrated"] = "#b2a2dd";
+  colorMapping["dismayed"] = "#D89ADF";
+  colorMapping["aggressive"] = "#D29AF4";
+  colorMapping["bored"] = "#c4a2f3";
+  colorMapping["frustrated"] = "#b8b2e3";
 
-  colorMapping["hurt"] = "#92d7af";
-  colorMapping["discouraged"] = "#82f298";
-  colorMapping["melancholy"] = "#87f68a";
-  colorMapping["small"] = "#a2e387";
+  colorMapping["hurt"] = "#a6d0ba";
+  colorMapping["discouraged"] = "#9be2a6";
+  colorMapping["melancholy"] = "#a3e69e";
+  colorMapping["small"] = "#b4dc98";
 
-  colorMapping["amazed"] = "#d7bd7f";
-  colorMapping["stunned"] = "#f2aa7c";
-  colorMapping["shocked"] = "#ffa87a";
-  colorMapping["frightened"] = "#ffb97a";
+  colorMapping["amazed"] = "#d8c38f";
+  colorMapping["stunned"] = "#f2bb90";
+  colorMapping["shocked"] = "#f4b78d";
+  colorMapping["frightened"] = "#f6c68f";
   
   return colorMapping;
 }
