@@ -9,7 +9,7 @@ import SuggestedMoves from '../components/SuggestedMoves';
 import RecentMovements from '../components/RecentMovements';
 import EmotionBreakdown from '../components/EmotionBreakdown';
 import motionData from '../utils/motionData'
-import hardcodedMovementData from '../utils/movementData';
+// import hardcodedMovementData from '../utils/movementData';
 
 import Toast from 'react-native-toast-message';
 
@@ -23,6 +23,9 @@ export default function CurrentEmotion() {
     const [showBreakdown, setShowBreakdown] = useState(false)
     const [movementFeelings, setMovementFeelings] = useState([])
     const context = useContext(FeelingContext);
+    let hardcodedMovementData = context.movementData;
+    // let movementData = hardcodedMovementData.data;
+    console.log("inside current emotion, " + hardcodedMovementData.length);
     const navigator = useNavigation();
     const staticListMotions = [{'name': 'Stretch', 'motionFeelings': null}, {'name': 'Walk to University Ave', 'motionFeelings': null}, {'name': 'Hike with Friends', 'motionFeelings': null}, {'name': 'Yoga', 'motionFeelings': null}]
     const [suggestedMotions, setSuggestionMotions] = useState([])
@@ -69,7 +72,7 @@ export default function CurrentEmotion() {
     }
 
     useEffect(() => {
-        if((context.movementData[context.movementData.length - 1].dateEntry !== (context.date)) && (context.movementData[context.movementData.length - 1].dateEntry !== ('0'+context.date))) {
+        if((hardcodedMovementData[hardcodedMovementData.length - 1].dateEntry !== (context.date)) && (hardcodedMovementData[hardcodedMovementData.length - 1].dateEntry !== ('0'+context.date))) {
            
         // if (context.getCurrentMovementIndex() == -1){
             setMovementFeelings(['startScreen'])
@@ -77,7 +80,7 @@ export default function CurrentEmotion() {
         }
         else {
 
-            // var nestedFeelings = context.movementFeelings(context.movementData[context.getCurrentMovementIndex()])
+            // var nestedFeelings = context.movementFeelings(context.hardcodedMovementData[context.getCurrentMovementIndex()])
             var nestedFeelings = context.movementFeelings(hardcodedMovementData[hardcodedMovementData.length-1])
             var temp = []
             for (var i = nestedFeelings.length-1; i >= 0; i--){
