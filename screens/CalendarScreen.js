@@ -7,7 +7,8 @@ import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
 import FeelingContext from '../components/FeelingContext';
 import React, { useContext } from 'react';
 import Emotion from '../components/Emotion';
-import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';import hardcodedMovementData from '../utils/movementData';
+import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
+// import hardcodedMovementData from '../utils/movementData';
 
 
 
@@ -37,6 +38,7 @@ function changeDateFormat(inputDate){  // expects Y-m-d
 export default function CalendarScreen() {
     const navigator = useNavigation();
     const context = useContext(FeelingContext);
+    let hardcodedMovementData = context.movementData;
     console.log("latest entry: " + hardcodedMovementData[hardcodedMovementData.length-1].dateEntry);
     
     function getMovement(date) {
