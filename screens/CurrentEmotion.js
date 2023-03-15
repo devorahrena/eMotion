@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
         height: '100%',
         width: '100%',
         alignItems: 'center',
-        justifyContent: 'flex-start',
+        justifyContent: 'space-between',
         backgroundColor: '#eee',
         marginTop: 20
     },
@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         fontSize: SCREEN_HEIGHT * 0.03
-    },  
+    },
      movementBox: {
         position: 'relative',
         justifyContent: 'center',
@@ -158,4 +158,5 @@ const styles = StyleSheet.create({
      optionText: {
         fontSize: 20
      }
+});
 });
