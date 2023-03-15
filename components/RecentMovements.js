@@ -33,7 +33,8 @@ export default function RecentMovements({ navigator, showToast }) {
           onPress={() =>
             navigator.navigate('DuringMotion', {
               selectedMovement: entry.name.substring(entry.name.length - 2, entry.name.length - 1) === " " ? entry.name.substring(0, entry.name.length - 2) : entry.name,
-              showToast: showToast
+              showToast: showToast,
+              movementStarted: true,
             })
           }
         >
