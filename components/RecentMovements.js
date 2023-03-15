@@ -42,6 +42,7 @@ export default function RecentMovements({ navigator, showToast }) {
     )}
     
   }
+  
   const renderMovements = (i) => {
     const movements = movementData[i].motionEntry
     console.log("length inside rendermovements is " + movementData[i].motionEntry.length)
@@ -86,8 +87,8 @@ const styles = StyleSheet.create({
   },
   entryContainer: {
     display: 'flex',
-    justifyContent: 'center', 
-    paddingLeft: 10, 
+    justifyContent: 'center',
+    paddingLeft: 10,
     paddingRight: 10,
   },
   title: {
@@ -109,7 +110,7 @@ const styles = StyleSheet.create({
   },
   entryTitle: {
     fontWeight: '700',
-    fontSize: 20,
+    fontSize: 15,
   },
   emotionContainer: {
     position: 'relative',
