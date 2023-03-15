@@ -5,7 +5,7 @@ import { useNavigation, useIsFocused } from '@react-navigation/native';
 import OnboardingItem from '../components/Onboarding/OnboardingItem'
 import slides from '../utils/screens'
 import Paginator from '../components/Onboarding/Paginator'
-import { AntDesign } from '@expo/vector-icons'; 
+import { AntDesign } from '@expo/vector-icons';
 
 export default function Onboarding() {
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -31,7 +31,7 @@ export default function Onboarding() {
         data={slides}
         horizontal
         bounces={false}
-        showHorizontalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}
         pagingEnabled
         renderItem={({ item }) => <OnboardingItem navigator={navigator} item={item} />}
         keyExtractor={(item) => item.id}
@@ -73,6 +73,6 @@ const styles = StyleSheet.create({
     padding: 10,
     width: 150,
     borderColor: '#89B0AD',
-    marginBottom: 20
+    marginBottom: 50
   }
 })
