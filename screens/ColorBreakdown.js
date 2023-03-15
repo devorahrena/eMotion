@@ -21,7 +21,7 @@ export default function ColorBreakdown ({route}) {
   const renderSimilar = () => {
     return (
       <ScrollView style={{height: '55%'}}>
-        {Object.keys(similarEmotions[feeling]).map(similarFeeling => {
+        {similarEmotions[feeling] ? Object.keys(similarEmotions[feeling]).map(similarFeeling => {
           return (
             <View style={styles.feelingGroup}>
               <View><Text>When you are <Text style={{fontWeight: '800', color: context.colorMapping[feeling]}}>{feeling}</Text> and <Text style={{fontWeight: '800', color: context.colorMapping[similarFeeling]}}>{similarFeeling}</Text></Text></View>
@@ -34,7 +34,7 @@ export default function ColorBreakdown ({route}) {
               <View style={styles.separator} />
             </View>
           )
-        })}
+        }) : <View><Text>No emotions logged with {feeling}!</Text></View>}
       </ScrollView>
     )
   }
