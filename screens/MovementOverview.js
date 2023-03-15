@@ -53,7 +53,11 @@ export default function MovementOverview({ route }) {
         if (movement.motionEntry){
           var movementData = movement.motionEntry
           for (var entry of movementData) {
-            temp.push({title: entry.feelings.join(', '), description: entry.name.length > 0 && `from ${entry.name}`, circleColor: context.colorMapping[entry.feelings[0]], lineColor: context.colorMapping[entry.feelings[0]]})
+            if(entry.name.charAt(entry.name.length - 2) === " ") {
+               entry.name = entry.name.slice(0,-2);
+            }
+            temp.push({title: entry.feelings.join(', '), description: entry.name.length > 2 && `from ${entry.name}`, circleColor: context.colorMapping[entry.feelings[0]], lineColor: context.colorMapping[entry.feelings[0]]})
+            
           }
           temp.push(firstItem)
           setData(temp)
