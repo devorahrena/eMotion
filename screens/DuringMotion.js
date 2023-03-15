@@ -28,6 +28,12 @@ export default function DuringMotion({route}) {
         setTimeout(() => {
           inputRef.current?.focus()
         }, 0);
+        console.log("*********************" + route.params.movementStarted);
+        if(route.params.movementStarted) {
+            
+            setMovementStarted(true);
+        }
+        
     }, [])
 
     const getMotions = (motionData) => {
@@ -83,8 +89,10 @@ export default function DuringMotion({route}) {
                         </View>
                     </View>}
             </View>
+{        console.log("*********************" + route.params.movementStarted)}
+{        console.log("*********************" + movementStarted)}
 
-            {movementStarted &&
+            {(movementStarted || route.params.movementStarted) &&
             <View style={styles.bottomViewContainer}>
                 <TouchableOpacity style={styles.startMovingContainer} onPress={() =>
                     {
