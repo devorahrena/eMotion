@@ -33,50 +33,12 @@ console.disableYellowBox = true;
 
 export default function App() {
 
-  // const [appIsReady, setAppIsReady] = useState(false);
-
-  // useEffect(() => {
-  //   async function prepare() {
-  //     try {
-
-  //       await hardcodedMovementData.loadAsync(hardcodedMovementData);
-  //     } catch (e) {
-  //       console.warn(e);
-  //     } finally {
-  //       setAppIsReady(true);
-  //     }
-  //   }
-
-  //   prepare();
-  // }, []);
-
-  // const onLayoutRootView = useCallback(async () => {
-  //   if (appIsReady) {
-  //     await SplashScreen.hideAsync();
-  //   }
-  // }, [appIsReady]);
-
-  // if (!appIsReady) {
-  //   return null;
-  // }
-
   const [currentFeelings, setCurrentFeelings] = useState([]);
   const [basic, setBasic] = useState([]);
   const [secondary, setSecondary] = useState([]);
   const [motion, setMotion] = useState({name:'', feelings:[], note:""});
-  // const initMovementData = waitUntil(() => hardcodedMovementData.data.length !== 0, {
-  //   // timeout: WAIT_FOREVER, // === Number.POSITIVE_INFINITY
-  //   intervalBetweenAttempts: 50, 
-  // });
-  // const [movementData, setMovementData] = useState(hardcodedMovementData.data);
     const [movementData, setMovementData] = useState(hardcodedMovementData);
 
-  // console.log("1 +++++++++++++++++++++++++++movement data is " + hardcodedMovementData.data.length);
-  // console.log("1 .....movement data is " + movementData);
-  // waitUntil(() => hardcodedMovementData.data.length > 25)
-  // .then(setMovementData(hardcodedMovementData.data));
-  // console.log("2 +++++++++++++++++++++++++++movement data is " + hardcodedMovementData.data.length);
-  // console.log("2 .....movement data is " + movementData);
   const [colorMapping, setColorMapping] = useState(mapAllColors(basicColorMapping));
   const [friends, setFriends] = useState(friendsData);
   const [contacts, setContacts] = useState(contactsData);
@@ -94,97 +56,14 @@ const [userId, setUserId] = useState(uuid.v4());
   
 
   useEffect(() => {
-    // loopData();
-    // console.log("looped");
-    // initializeMovementData();
-    
-    // let obj = {};
-    // obj.dateEntry = date;
-    // let motionEntry = {};
-    // motionEntry.feelings = ["happy", "content"];
-    // motionEntry.name = "placeholder";
-    // motionEntry.note = "";
-    // obj.motionEntry = motionEntry;
-    // setUserId();
+
     set(ref(database, 'users/' + userId + "/" + 0), {
       dateEntry: date,
   })
-    // set(ref(database, 'users/' + userId + '/0'), {
-    //   dateEntry: date,
-    //   // motionEntry: motionEntry,
-    //   // 0: obj,
-    // });
-    // set(ref(database, 'users/' + userId + '/0/motionEntry/0/'), {
-    //   feelings: ["happy", "content"],
-    //   name: "placeholder",
-    //   note: "",
-    // });
   }, []);
 
   const accountDataRef = ref(database, "users/" + userId);
   let accountData = [];
-
-
-// onValue(accountDataRef, (snapshot) => {
-//   console.log("updating accountData from account");
-//   let newAccountData = [];
-//     const data = snapshot.val();
-//       if(data) {
-//         console.log("there was data " + Object.keys(data));
-
-//         for (let i = 0; i < data.length; i++) {
-//           let obj = {};
-//           obj.dateEntry = data[i].dateEntry;
-//           let motionEntries = [];
-//           if(data[i].motionEntry) {
-//               for (let j = 0; j < data[i].motionEntry.length; j++) {//there can be multiple motion entries  
-//                 if(data[i].motionEntry[j]) {
-//                   if (data[i].motionEntry[j].feelings && data[i].motionEntry[j].name) {
-//                     let motionEntry = {};
-//                     motionEntry.feelings = data[i].motionEntry[j].feelings;
-//                     console.log("feelings: " + data[i].motionEntry[j].feelings);
-//                     motionEntry.name = data[i].motionEntry[j].name;
-//                     console.log("name: " + data[i].motionEntry[j].name);
-//                     motionEntry.note = data[i].motionEntry[j].note;
-//                     console.log("note: " + data[i].motionEntry[j].note);
-//                     motionEntries.push(motionEntry);
-//                   }
-//                 }
-                
-//               }
-//           }
-//           obj.motionEntry = motionEntries;
-//           newAccountData.push(obj);
-//         }
-//         console.log('new account data length' + newAccountData.length);
-//     let newData = newAccountData.filter(x => !accountData.includes(x));
-//     // accountData = [...newAccountData];
-//     for(let i = 0; i < newData.length; i++) {
-//       accountData.push(newData[i]);
-//       console.log("accountData is now " + JSON.stringify(accountData));
-//       movementData.push(newData[i]);
-//     }
-//     console.log(JSON.stringify(movementData));
-//       }
-      
-    
-// });
-
-
-
-
-
-  // function initializeMovementData() {
-  //   if(movementData.length === 0) {
-  //     setMovementData(hardcodedMovementData.data);
-  //     delay(100).then(() => initializeMovementData());
-
-      
-  //   }
-  // }
-
-
-
 
   function removeFriend(name, username) {
     let updatedFriends = friends;
@@ -225,7 +104,7 @@ const [userId, setUserId] = useState(uuid.v4());
     colorMapping[feeling] = newColor
   }
   function deleteEmotionFromData(feeling, basic) {
-    console.log(`deleting: ${feeling}`)
+    // console.log(`deleting: ${feeling}`)
     emotionsData[basic].splice(emotionsData[basic].indexOf(feeling), 1)
     
   }
@@ -347,7 +226,7 @@ const [userId, setUserId] = useState(uuid.v4());
 
   function getMovement(date) {
     for (let i = 0; i < movementData.length; i++) {
-      if (movementData[i].dateEntry === date) {
+      if (movementData[i].dateEntry === date || '0' + movementData[i].dateEntry === date) {
         return movementData[i];
       }
     }
@@ -370,13 +249,7 @@ const [userId, setUserId] = useState(uuid.v4());
 //     return `${inputDate.getMonth()+1 < 10 && '0'}${inputDate.getMonth()+1}/${inputDate.getDate()}/${inputDate.getFullYear()}` 
 // }
   function updateMovement(name, feelings, movementDate) {
-    // console.log("movement date pre: " + movementDate);
-    // console.log("typeof: " + typeof(movementDate));
-    // movementDate = formatDate(Date(movementDate));
-    // console.log("movement date post: " + movementDate);
-    console.log("name is ***************" + name)
-    console.log(feelings)
-    console.log("movement date is " + movementDate)
+ 
     let updated = [...movementData];
     let newMotion = {};
     //add a number to the motion name
@@ -421,75 +294,14 @@ const [userId, setUserId] = useState(uuid.v4());
       // set(ref(database, 'users/' + userId + "/" + 0), {
       //     dateEntry: movementDate,
       // })
-      console.log("account data length is " + accountData.length);
-      console.log("userid is " + userId);
       set(ref(database, 'users/' + userId + "/" + 0 + '/motionEntry/' + movementData.length), {
         feelings: feelings,
         name: name,
         note: "",
       })
-      // setLength(length+1);
 
 
-    
-    // if((accountData[accountData.length-1].dateEntry !== ('0'+movementDate)) && (accountData[accountData.length-1].dateEntry !== (movementDate))) { //if there isn't already a movement entry for today in accountData
-    //   console.log("new, accountData length is " + accountData.length);
-    //   movementDate = '0'+movementDate; //TODO: less than 10
-    //   set(ref(database, 'users/' + userId + "/" + accountData.length), {
-    //       dateEntry: movementDate,
-    //   })
-    //   console.log("movement data length is " + accountData.length);
-    //   set(ref(database, 'users/' + userId + "/" + (accountData.length - 1) + '/motionEntry/' + 0), {
-    //     feelings: feelings,
-    //     name: name,
-    //     note: "",
-    //   })
-    // } else {
-    //   console.log(accountData[accountData.length-1].dateEntry)
-    //   console.log('0'+movementDate)
-    //   let length = 0;
-    //   console.log("accountData[accountData.length-1].motionEntry: " + accountData[accountData.length-1].motionEntry);
-    //   if(accountData[accountData.length-1].motionEntry) { //if a motionEntry exists
-    //     length = accountData[accountData.length-1].motionEntry.length;
-    //     console.log("existing, length is " + length);
-    //   }
-    //   console.log(accountData.length-1)
-    //   set(ref(database, 'users/' + userId + "/" + (accountData.length-1) + '/motionEntry/' + (length-1)), {
-    //     feelings: feelings,
-    //     name: name,
-    //     note: "",
-    //   })
-    // }
 
-
-    // if((movementData[movementData.length-1].dateEntry !== ('0'+movementDate)) && (movementData[movementData.length-1].dateEntry !== (movementDate))) { //if there isn't already a movement entry for today
-    //   console.log("new, length is " + movementData.length);
-    //   movementDate = '0'+movementDate; //TODO: less than 10
-    //   set(ref(database, 'hardcodedMovementData/' + movementData.length), {
-    //       dateEntry: movementDate,
-    //   })
-    //   console.log("movement data length is " + movementData.length);
-    //   set(ref(database, 'hardcodedMovementData/' + (movementData.length - 1) + '/motionEntry/' + 0), {
-    //     feelings: feelings,
-    //     name: name,
-    //     note: "",
-    //   })
-    // } else {
-    //   console.log(movementData[movementData.length-1].dateEntry)
-    //   console.log('0'+movementDate)
-    //   let length = 0;
-    //   console.log("movementData[movementData.length-1].motionEntry: " + movementData[movementData.length-1].motionEntry);
-    //   if(movementData[movementData.length-1].motionEntry) { //if a motionEntry exists
-    //     length = movementData[movementData.length-1].motionEntry.length;
-    //     console.log("existing, length is " + length);
-    //   }
-    //   console.log(movementData.length-1)
-    //   set(ref(database, 'hardcodedMovementData/' + (movementData.length-1) + '/motionEntry/' + (length-1)), {
-    //     feelings: feelings,
-    //     name: name,
-    //     note: "",
-    //   })
-    // }
   }
 
   const feelingSettings = {
