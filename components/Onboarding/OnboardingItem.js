@@ -6,8 +6,8 @@ export default function OnboardingItem ({item}) {
     return (
         <View style={[styles.container, {width}]}>
             <Image source={require('../../assets/emotion-logo.png')} />
-            <Image source={item.image} style={[styles.image, {width: width/1.2, resizeMode: 'contain'}]}/>
-            <View style={{ flex: 0.3 }}>
+            <Image source={item.image} style={[styles.image, {width: width/1.5, resizeMode: 'contain'}]}/>
+            <View style={{ top: 30, flex: 0.3 }}>
                 <Text style={styles.title}>{item.title}</Text>
                 {item.description.map((description)  => {
                     return (
@@ -25,20 +25,22 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     image: {
+        top: 40,
         flex: 0.5,
         justifyContent: 'center'
     },
     title: {
         fontWeight: '800',
-        fontSize: 28,
+        fontSize: 20,
         marginBottom: 10,
         color: '#89B0AD',
         textAlign: 'center',
     },
     description: {
+        top: 15,
         fontWeight: '600',
         textAlign: 'center',
-        fontSize: 20,
+        fontSize: 17,
         paddingHorizontal: 20
     }
 })
