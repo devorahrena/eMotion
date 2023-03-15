@@ -3,7 +3,7 @@ import { useNavigation } from '@react-navigation/native';
 import FeelingContext from '../components/FeelingContext';
 import { useContext } from 'react';
 import Emotion from './Emotion';
-import { AntDesign } from '@expo/vector-icons'; 
+import { AntDesign } from '@expo/vector-icons';
 
 export default function SuggestedMoves({showToast}) {
     const navigator = useNavigation();
@@ -28,7 +28,8 @@ const styles = StyleSheet.create({
     },
     title: {
         margin: 10,
-        fontWeight: "800" 
+        fontWeight: "800",
+        fontSize: 13
     },
     emotion: {
         width: '100%',
@@ -54,6 +55,6 @@ const styles = StyleSheet.create({
     },
     cardText: {
         fontSize: 15,
-        fontWeight: "600" 
+        fontWeight: "600"
     }
 })
