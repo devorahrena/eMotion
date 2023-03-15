@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
     textinput: {
         fontWeight: 'bold',
         fontSize: SCREEN_HEIGHT * 0.035,
-        width: '100%'
+        width: '100%',
     },
     bottomText: {
         fontSize: 24,
@@ -166,12 +166,16 @@ const styles = StyleSheet.create({
         top: 60
     },
     startButton: {
-      position: 'absolute',
       alignSelf: 'center',
       right: 0,
+      backgroundColor: '#aaa',
+      padding: 5,
+      borderRadius: 5,
+        marginTop: 10
     },
     userInput: {
       display: 'flex',
-      flexDirection: 'row'
+      flexDirection: 'row',
+      flexWrap: 'wrap'
     }
 });
