@@ -12,20 +12,45 @@ import {
 import FeelingContext from '../components/FeelingContext'
 import { useContext, useState } from 'react'
 import Emotion from './Emotion'
-import hardcodedMovementData from '../utils/movementData';
+// import movementData from '../utils/movementData';
 
 export default function RecentMovements({ navigator, showToast }) {
   const context = useContext(FeelingContext)
+  // let hardcodedMovementData = movementData.data;
+  let movementData = context.movementData;
+  console.log("inside recent movements, " + movementData.length);
   console.log(showToast)
+  const showRedo = (entry) => {
+    var lengthEntry = entry.name.length
+    console.log(entry)
+    if (lengthEntry <= 2){
+      return (<View style={[styles.redo, {backgroundColor: 'white'}]}/>)
+    }
+    else {
+      return (
+        <TouchableOpacity
+          style={styles.redo}
+          onPress={() =>
+            navigator.navigate('DuringMotion', {
+              selectedMovement: entry.name.substring(entry.name.length - 2, entry.name.length - 1) === " " ? entry.name.substring(0, entry.name.length - 2) : entry.name,
+              showToast: showToast
+            })
+          }
+        >
+          <Text style={{textAlign: 'center'}}>Redo</Text>
+        </TouchableOpacity>
+    )}
+    
+  }
   const renderMovements = (i) => {
-    const movements = hardcodedMovementData[i].motionEntry.reverse()
-    console.log("length inside rendermovements is " + hardcodedMovementData[i].motionEntry.length)
+    const movements = movementData[i].motionEntry
+    console.log("length inside rendermovements is " + movementData[i].motionEntry.length)
     return (
       <View style={styles.entryContainer}>
         <View style={styles.date}>
-          <Text>{hardcodedMovementData[i].dateEntry}</Text>
+          <Text>{movementData[i].dateEntry}</Text>
         </View>
-        {movements.map((entry, idx) => {
+        {movements.reverse().map((entry, idx) => {
           return (
             <View key={idx} style={styles.movement}>
               <View style={styles.emotionContainer}>
@@ -35,17 +60,7 @@ export default function RecentMovements({ navigator, showToast }) {
                 <Text style={styles.entryTitle}>Felt {entry.feelings.join(', ')} </Text>
                 <Text>{entry.name.substring(entry.name.length - 2, entry.name.length - 1) === " " ? entry.name.substring(0, entry.name.length - 2) : entry.name}</Text>
               </View>
-              {entry.name.length > 0 ? (<TouchableOpacity
-                style={styles.redo}
-                onPress={() =>
-                  navigator.navigate('DuringMotion', {
-                    selectedMovement: entry.name.substring(entry.name.length - 2, entry.name.length - 1) === " " ? entry.name.substring(0, entry.name.length - 2) : entry.name,
-                    showToast: showToast
-                  })
-                }
-              >
-                <Text style={{textAlign: 'center'}}>Redo</Text>
-              </TouchableOpacity>) : <View style={[styles.redo, {backgroundColor: 'white'}]}/>}
+              {showRedo(entry)}
             </View>
           )
         })}
@@ -55,7 +70,7 @@ export default function RecentMovements({ navigator, showToast }) {
   return (
       <ScrollView style={styles.container}>
           <Text style={styles.title}>Recent</Text>
-          {renderMovements(hardcodedMovementData.length - 1)}
+          {renderMovements(movementData.length - 1)}
       </ScrollView>
   )
 }
