@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
         height: '100%',
         width: '100%',
         alignItems: 'center',
-        justifyContent: 'space-between',
+        justifyContent: 'space-evenly',
         backgroundColor: '#eee',
         marginTop: 20
     },
