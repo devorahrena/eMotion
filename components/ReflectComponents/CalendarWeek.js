@@ -58,7 +58,6 @@ export default function CalendarWeek({navigator}) {
                         )
                     })}
                 </View>
-                <Text style={styles.smallText}>Tap to expand</Text>
             </TouchableOpacity>
         </View>
     )
@@ -99,7 +98,12 @@ const styles = StyleSheet.create({
     },
     smallText: {
         fontSize: 14,
-        textAlign: 'right'
+        textAlign: 'right',
+    },
+    smallTextHolder: {
+        backgroundColor: '#aaa',
+        padding: 5,
+        borderRadius: 5,
     },
     daysOfWeek: {
         color: '#626262'
