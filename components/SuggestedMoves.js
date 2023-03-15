@@ -1,20 +1,36 @@
-import { ImageBackground, StyleSheet, Text, ScrollView, Pressable, View } from 'react-native';
+import { ImageBackground, StyleSheet, Text, ScrollView, Pressable, View, Animated } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import FeelingContext from '../components/FeelingContext';
-import { useContext } from 'react';
+import { useContext, useRef, useEffect } from 'react';
 import Emotion from './Emotion';
 import { AntDesign } from '@expo/vector-icons';
 
 export default function SuggestedMoves({showToast}) {
     const navigator = useNavigation();
 
+    const animatedScale = useRef(new Animated.Value(0)).current;
+    useEffect(() => {
+      animatedScale.setValue(1);
+    }, []);
+
     return (
         <View style={styles.container}>
             <Pressable style={styles.card} onPress={() => {
-                        navigator.navigate('DuringMotion', {selectedMovement: '', showToast: showToast})
-                    }}>
-                    <AntDesign name="plus" size={24} color="black" />
-                    <Text style={styles.title}>Let's start moving again.</Text></Pressable>
+                        animatedScale.setValue(0,8);
+                        Animated.spring(animatedScale, {
+                          toValue:1,
+                          bounciness: 20,
+                          speed: 100,
+                          useNativeDriver: true,
+                        }).start();
+                        navigator.navigate('DuringMotion', {selectedMovement: '', showToast: showToast});
+              }}>
+                    <Animated.View
+                    style={[styles.button, {transform: [{scale: animatedScale}]}]}>
+                      <AntDesign name="plus" size={15} color="black" />
+                      <Text style={styles.title}>Let's start moving again.</Text>
+                    </Animated.View>
+              </Pressable>
         </View>
     )
 }
@@ -56,5 +72,11 @@ const styles = StyleSheet.create({
     cardText: {
         fontSize: 15,
         fontWeight: "600"
+    },
+    button: {
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+
     }
 })
