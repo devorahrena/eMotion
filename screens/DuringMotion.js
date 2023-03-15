@@ -166,6 +166,7 @@ const styles = StyleSheet.create({
         top: 60
     },
     startButton: {
+      position: 'absolute',
       alignSelf: 'center',
       right: 0,
       backgroundColor: '#aaa',
