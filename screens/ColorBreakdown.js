@@ -9,6 +9,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
 import motionData from '../utils/motionData';
 import FeelingContext from '../components/FeelingContext'
+import similarEmotions from '../utils/similarEmotions';
 
 export default function ColorBreakdown ({route}) {
   const {feeling, navigator} = route.params
@@ -16,14 +17,20 @@ export default function ColorBreakdown ({route}) {
   console.log(motionData)
   console.log(feeling)
   const context = useContext(FeelingContext)
-  const renderOtherSecondary = () => {
+  const renderSimilar = () => {
     return (
-      <View><Text>other secondary</Text></View>
-    )
-  }
-  const renderBasic = () => {
-    return (
-      <View><Text>render basic</Text></View>
+      <View>
+        {Object.keys(similarEmotions[feeling]).map(similarFeeling => {
+          return (
+            <View>
+              <View><Text>When you are {feeling} and {similarFeeling}</Text></View>
+              {similarEmotions[feeling][similarFeeling].map(movement => {
+                <Text>{movement}</Text>
+              })}
+            </View>
+          )
+        })}
+      </View>
     )
   }
     return (
@@ -40,7 +47,7 @@ export default function ColorBreakdown ({route}) {
             </View>
             <View style={styles.similar}><Text style={[styles.emotionText, {textAlign: 'center'}]}>Similar Emotions to {feeling}</Text></View>
             <View style={styles.explanationContainer}>
-              {mainEmotions.indexOf(feeling) < 0 ? renderOtherSecondary() : renderBasic()}
+              {renderSimilar()}
             </View>
           <View style={styles.backArrow}>
             <MaterialIcons name="keyboard-backspace" size={50} color="black" onPress={() => navigator.goBack()}/>
