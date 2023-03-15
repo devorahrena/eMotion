@@ -24,7 +24,7 @@ export default function ColorBreakdown ({route}) {
         {similarEmotions[feeling] ? Object.keys(similarEmotions[feeling]).map(similarFeeling => {
           return (
             <View style={styles.feelingGroup}>
-              <View><Text>When you are <Text style={{fontWeight: '800', color: context.colorMapping[feeling]}}>{feeling}</Text> and <Text style={{fontWeight: '800', color: context.colorMapping[similarFeeling]}}>{similarFeeling}</Text></Text></View>
+              <View><Text style={{textAlign: 'center'}}>Activities for when you are <Text style={{fontWeight: '800', color: context.colorMapping[feeling]}}>{feeling}</Text> and <Text style={{fontWeight: '800', color: context.colorMapping[similarFeeling]}}>{similarFeeling}</Text></Text></View>
               <View style={styles.smallEmotionContainer}>
               <Emotion feelings={[similarFeeling, feeling]} noPulse={true} /></View>
               {similarEmotions[feeling][similarFeeling].map(movement => {
