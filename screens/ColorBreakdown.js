@@ -4,33 +4,38 @@ import {
     Text,
     StyleSheet,
     TouchableOpacity,
+    ScrollView
   } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
 import motionData from '../utils/motionData';
 import FeelingContext from '../components/FeelingContext'
 import similarEmotions from '../utils/similarEmotions';
+import Emotion from '../components/Emotion';
 
 export default function ColorBreakdown ({route}) {
   const {feeling, navigator} = route.params
-  const mainEmotions = ["joyful", "anxious", "angry", "sad", "surprised"]
   console.log(motionData)
   console.log(feeling)
   const context = useContext(FeelingContext)
   const renderSimilar = () => {
     return (
-      <View>
+      <ScrollView style={{height: '55%'}}>
         {Object.keys(similarEmotions[feeling]).map(similarFeeling => {
           return (
-            <View>
-              <View><Text>When you are {feeling} and {similarFeeling}</Text></View>
+            <View style={styles.feelingGroup}>
+              <View><Text>When you are <Text style={{fontWeight: '800', color: context.colorMapping[feeling]}}>{feeling}</Text> and <Text style={{fontWeight: '800', color: context.colorMapping[similarFeeling]}}>{similarFeeling}</Text></Text></View>
+              <View style={styles.smallEmotionContainer}>
+              <Emotion feelings={[similarFeeling, feeling]} noPulse={true} /></View>
               {similarEmotions[feeling][similarFeeling].map(movement => {
-                <Text>{movement}</Text>
+                return(<View style={styles.similarContainer}>
+                <Text style={styles.movement}>{movement}</Text></View>)
               })}
+              <View style={styles.separator} />
             </View>
           )
         })}
-      </View>
+      </ScrollView>
     )
   }
     return (
@@ -45,7 +50,7 @@ export default function ColorBreakdown ({route}) {
                     return (<Text style={styles.activity}>{idx+1}.&nbsp;{activity}</Text>)
                 })}
             </View>
-            <View style={styles.similar}><Text style={[styles.emotionText, {textAlign: 'center'}]}>Similar Emotions to {feeling}</Text></View>
+            <View style={styles.similar}><Text style={[styles.emotionText, {textAlign: 'center', marginBottom: 20}]}>Similar Emotions to {feeling}</Text></View>
             <View style={styles.explanationContainer}>
               {renderSimilar()}
             </View>
@@ -65,6 +70,33 @@ const styles = StyleSheet.create({
     subtitleContainer: {
         flexDirection: 'row',
         marginBottom: 10
+    },
+    smallEmotionContainer: {
+      position: 'relative',
+      justifyContent: 'center',
+      alignItems: 'center',
+      aspectRatio: 1,
+      height: 40,
+      flex: 1,
+            // backgroundColor: 'pink',
+
+      // marginRight: 10
+    },
+    movement: {
+      flex: 5,
+    },
+    similarContainer: {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      // backgroundColor: 'pink',
+      // justifyContent: 'center',
+
+    },
+    feelingGroup: {
+      display: 'flex',
+      padding: 10,
+      justifyContent: 'center',
     },
     explanationContainer: {
         backgroundColor: 'white',
@@ -90,7 +122,7 @@ const styles = StyleSheet.create({
       emotionText: {
         fontSize: 15, 
         fontWeight: '800',
-        marginLeft: 4
+        marginLeft: 4,
       },
       emotionContainer: {
         flexDirection: 'row',
@@ -117,4 +149,10 @@ const styles = StyleSheet.create({
       left: 0,
       marginTop: 40
   },
+  separator: {
+    height: 1, 
+    width: '90%',
+    backgroundColor: '#ccc',
+    marginTop: 10
+  }
 })
