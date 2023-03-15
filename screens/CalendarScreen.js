@@ -1,11 +1,11 @@
 import { StyleSheet, Text, View, Pressable, Dimensions } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useIsFocused } from '@react-navigation/native';
 import Themes from '../assets/Themes';
 import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
 import FeelingContext from '../components/FeelingContext';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState} from 'react';
 import Emotion from '../components/Emotion';
 import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 // import hardcodedMovementData from '../utils/movementData';
@@ -38,13 +38,16 @@ function changeDateFormat(inputDate){  // expects Y-m-d
 export default function CalendarScreen() {
     const navigator = useNavigation();
     const context = useContext(FeelingContext);
-    let hardcodedMovementData = context.movementData;
-    console.log("latest entry: " + hardcodedMovementData[hardcodedMovementData.length-1].dateEntry);
-    
+    const [hardcodedMovementData, setHardcoded] = useState(context.movementData)
+    // let hardcodedMovementData = context.movementData;
+    const isFocused = useIsFocused()
+    useEffect(() => {
+        setHardcoded(context.movementData)
+    }, [isFocused])
     function getMovement(date) {
-        for (let i = 0; i < hardcodedMovementData.length; i++) {
-          if (hardcodedMovementData[i].dateEntry === date) {
-            return hardcodedMovementData[i];
+        for (let i = 0; i < context.movementData.length; i++) {
+          if ((context.movementData[i].dateEntry === date) || '0'+context.movementData[i].dateEntry === date) {
+            return context.movementData[i];
           }
         }
         return -1;
@@ -52,7 +55,7 @@ export default function CalendarScreen() {
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.backArrow}>
-                <MaterialIcons name="keyboard-backspace" size={50} color="black" onPress={() => navigator.goBack()}/>
+                <MaterialIcons name="keyboard-backspace" size={50} color="black" onPress={() => navigator.navigate("ReflectPage")}/>
             </View> 
             <View style={styles.topBar}>
             <MaterialCommunityIcons name="calendar-heart" size={28} color="black" />
@@ -67,8 +70,8 @@ export default function CalendarScreen() {
                     dayComponent={({date, _}) => {
                         const newDate = changeDateFormat(date.dateString);
                         let movementFeelings = [];
-                        console.log("newdate: " + getMovement(newDate));
                         if (getMovement(newDate) !== -1) {
+                            
                             var nestedFeelings = context.movementFeelings(getMovement(newDate));
                             var temp = []
                             for (var i = nestedFeelings.length-1; i >= 0; i--){
